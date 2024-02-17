@@ -18,7 +18,7 @@ class WhereisitApplicationTests {
 
 	@Autowired
 	private MockMvc mvc;
-	
+
 	@Test
 	void getHello() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
