@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html th:fragment="layout (content)" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Where is it?</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="container">
+    <div class="menu">
+        <div class="menuItem">
+            <a href="/search">Search</a>
+        </div>
+        <div class="menuItem">
+            <a href="/room">Rooms</a>
+        </div>
+        <div class="menuItem">
+            <a href="/container">Containers</a>
+        </div>
+        <div class="menuItem">
+            <a href="/item">Items</a>
+        </div>
+    </div>
+    <div id="content" th:insert="${content}">
+            [Template content will be inserted here]
+    </div>
+    <div id="messages">
+        <li th:each="message : ${messages}" th:text="${message}">Messages go here.</li>
+    </div>
+    <div id="footer">
+        <p>
+            Brought to you by Damaru Inc.
+        </p>
+        <p>
+            <span th:text="|Built #{git.build.time} from commit #{git.commit.id.describe}.|">Build time goes here.</span>
+        </p>
+    </div>
+</div>
+</body>
+</html>
