@@ -22,6 +22,14 @@ public class Room implements Saveable {
 //    @Size(min = 1, max = 128)
     private String name;
 
+    public Room() {
+    }
+
+    public Room(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

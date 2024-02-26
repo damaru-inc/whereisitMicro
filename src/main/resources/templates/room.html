@@ -1,14 +1,16 @@
 <!DOCTYPE HTML>
-<html th:replace="~{layoutFile :: layout(~{::form})}" xmlns:th="http://www.thymeleaf.org">
+<html th:replace="~{layoutFile :: layout(~{::#content})}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Index</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link type="text/css" rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<form >
-    <li th:each="room : ${rooms}" th:text="${room}">
-</form>
+<div id="content">
+    <form>
+        <li th:each="room : ${rooms}" th:text="${room}">
+    </form>
+</div>
 </body>
 </html>
 
