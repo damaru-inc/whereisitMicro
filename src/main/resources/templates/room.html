@@ -7,29 +7,22 @@
 </head>
 <body>
 <div id="content">
+    <h2>Rooms</h2>
     <form action="#" th:action="@{/room}" th:object="${room}" method="post">
-        <table style="width: 30%">
-            <tbody>
-            <tr>
-                <td><span id="roomForm:msg" style="display: block; height:20px;"></span></td>
-            </tr>
-            <tr>
-                <td><input type="text" th:field="*{name}" maxlength="128" size="30" style="width: 98%"></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Submit" /></td>
-            </tr>
-            <tr>
-                <td>
-                    <select id="roomList" size="10" style="width: 100%">
-                        <option value="0" th:value="${room.id}" th:each="room : ${rooms}" th:text="${room.name}">Study</option>
-                        <option value="1" th:remove="all">Conservatory</option>
-                        <option value="2" th:remove="all">Gymnasium</option>
-                    </select>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div style="width: 98%">
+            <input type="text" th:field="*{name}" maxlength="128" size="30"/>
+        </div>
+        <div>
+            <select id="roomList" size="10" style="width: 100%">
+                <option value="0" th:value="${room.id}" th:each="room : ${rooms}" th:text="${room.name}">Study</option>
+                <option value="1" th:remove="all">Conservatory</option>
+                <option value="2" th:remove="all">Gymnasium</option>
+            </select>
+        </div>
+        <div class="buttons">
+            <button type="submit" name="new">New</button>
+            <button type="submit" name="save">Save</button>
+        </div>
     </form>
 </div>
 </body>
