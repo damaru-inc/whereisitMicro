@@ -10,8 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.FlashMap;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import java.util.List;
@@ -44,19 +43,48 @@ public class WebController {
         return "room";
     }
 
-    @PostMapping(value="/room", params={"save"})
-    public String saveRoom(@ModelAttribute Room room, RedirectAttributes redirectAttributes) {
-        log.info("Saving {}", room);
-        roomRepository.save(room);
-        redirectAttributes.addFlashAttribute("messages", List.of("Saved " + room));
-        log.debug("flashMap: {}", redirectAttributes);
-        return "redirect:room";
+    @PostMapping(value="/room", params={"delete"})
+    public String delete(Model model, @ModelAttribute Room room) {
+        log.info("delete {}", room);
+        Long id = room.getId();
+        if (id != null) {
+            roomRepository.delete(room);
+        }
+        model.addAttribute("room", new Room());
+        model.addAttribute("rooms", roomRepository.findAll());
+        return "room :: #roomForm";
     }
 
     @PostMapping(value="/room", params={"new"})
-    public String newRoom() {
+    public String newRoom(Model model) {
         log.info("new room");
-        return "redirect:room";
+        model.addAttribute("room", new Room());
+        model.addAttribute("rooms", roomRepository.findAll());
+        model.addAttribute("messages", List.of("Enter a new room."));
+        return "room :: #roomForm";
+    }
+
+    @PostMapping(value="/room", params={"save"})
+    // FOR WHEN WE NEED FLASH: public String saveRoom(Model model, @ModelAttribute Room room, RedirectAttributes redirectAttributes) {
+    public String saveRoom(Model model, @ModelAttribute Room room) {
+        log.info("Saving {}", room);
+        roomRepository.save(room);
+        model.addAttribute("rooms", roomRepository.findAll());
+        model.addAttribute("messages", List.of("Saved " + room));
+        // FOR WHEN WE NEED FLASH:
+        //redirectAttributes.addFlashAttribute("messages", List.of("Saved " + room));
+        //log.debug("flashMap: {}", redirectAttributes);
+        return "room :: #roomForm";
+    }
+
+    @PostMapping(value="/select", params={"selectedRoom"})
+    public String select(Model model, @RequestParam String selectedRoom) {
+        log.info("select {}", selectedRoom);
+        Long roomId = Long.valueOf(selectedRoom);
+        Room room = roomRepository.findById(roomId).get();
+        model.addAttribute("room", room);
+        model.addAttribute("rooms", roomRepository.findAll());
+        return "room :: #roomForm";
     }
 
     @GetMapping("/search")

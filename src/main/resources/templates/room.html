@@ -8,20 +8,26 @@
 <body>
 <div id="content">
     <h2>Rooms</h2>
-    <form action="#" th:action="@{/room}" th:object="${room}" method="post">
-        <div style="width: 98%">
+    <form id="roomForm" th:object="${room}">
+        <div id="roomFields">
+            <input type="hidden" th:field="*{id}"/>
             <input type="text" th:field="*{name}" maxlength="128" size="30"/>
         </div>
-        <div>
-            <select id="roomList" size="10" style="width: 100%">
-                <option value="0" th:value="${room.id}" th:each="room : ${rooms}" th:text="${room.name}">Study</option>
-                <option value="1" th:remove="all">Conservatory</option>
-                <option value="2" th:remove="all">Gymnasium</option>
-            </select>
-        </div>
+        <select id="roomList" name="selectedRoom" size="10" style="width: 100%">
+            <option value="0"
+                    th:value="${room.id}"
+                    th:each="room : ${rooms}"
+                    th:text="${room.name}"
+                    hx-post="/select"
+                    hx-target="#roomForm"
+                    hx-swap="outerHTML">Study</option>
+            <option value="1" th:remove="all">Conservatory</option>
+            <option value="2" th:remove="all">Gymnasium</option>
+        </select>
         <div class="buttons">
-            <button type="submit" name="new">New</button>
-            <button type="submit" name="save">Save</button>
+            <button name="new" hx-target="#roomForm" hx-swap="outerHTML" hx-post="/room">New</button>
+            <button name="save" hx-target="#roomForm" hx-swap="outerHTML" hx-post="/room">Save</button>
+            <button name="delete" hx-target="#roomForm" hx-swap="outerHTML" hx-post="/room" hx-confirm="Delete the room?">Delete</button>
         </div>
     </form>
 </div>

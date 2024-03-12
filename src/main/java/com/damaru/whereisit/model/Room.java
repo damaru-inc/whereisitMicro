@@ -25,7 +25,7 @@ public class Room implements Saveable {
     public Room() {
     }
 
-    public Room(long id, String name) {
+    public Room(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -35,7 +35,6 @@ public class Room implements Saveable {
     }
 
     public void setId(Long id) {
-        System.out.println("Setting id to " + id);
         this.id = id;
     }
 
@@ -46,7 +45,7 @@ public class Room implements Saveable {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     @Override
     public String toString() {
         return String.format("[Room %3d %s]", id, name);

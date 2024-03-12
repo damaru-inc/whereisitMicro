@@ -41,7 +41,7 @@ class WhereisitApplicationTests {
 
 	@Test
 	void getRooms() throws Exception {
-		roomRepository.save(new Room(1, "Solarium"));
+		roomRepository.save(new Room(1L, "Solarium"));
 		log.info("Here we go.");
 		MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/room").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
